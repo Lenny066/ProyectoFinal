@@ -5,13 +5,12 @@ function Header() {
   const { isDark, toggleTheme } = useTheme()
   const [quote, setQuote] = useState('')
 
-  // Al abrir la app: traer una frase al azar de public/quotes.json
+  // Al abrir la app: pedirle una frase al azar a la API
   useEffect(() => {
-    fetch('/quotes.json')
+    fetch('https://dummyjson.com/quotes/random')
       .then((response) => response.json())
-      .then((quotes: string[]) => {
-        const random = Math.floor(Math.random() * quotes.length)
-        setQuote(quotes[random])
+      .then((data: { quote: string; author: string }) => {
+        setQuote(`"${data.quote}" — ${data.author}`)
       })
   }, [])
 
