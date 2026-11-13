@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useTheme } from '../context/ThemeContext'
+import { useUser } from '../context/UserContext'
 
 function Header() {
-  const { isDark, toggleTheme } = useTheme()
+  const { name, isDark, toggleTheme } = useUser()
   const [quote, setQuote] = useState('')
 
   // Al abrir la app: pedirle una frase al azar a la API
@@ -17,7 +17,14 @@ function Header() {
   return (
     <header className="pt-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Tarlist</h1>
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Tarlist</h1>
+          {name && (
+            <p className="text-base text-gray-600 dark:text-gray-300">
+              Hola, {name} 👋
+            </p>
+          )}
+        </div>
         <button
           onClick={toggleTheme}
           className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-xl dark:bg-gray-800"
