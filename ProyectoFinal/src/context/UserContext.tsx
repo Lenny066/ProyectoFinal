@@ -7,6 +7,7 @@ interface UserContextType {
   isDark: boolean
   saveUser: (name: string, isDark: boolean) => void
   toggleTheme: () => void
+  logout: () => void
 }
 
 const UserContext = createContext<UserContextType>({} as UserContextType)
@@ -39,8 +40,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setIsDark(!isDark)
   }
 
+  // Vuelve los datos a cero para que reaparezca el pop up
+  function logout() {
+    setName('')
+    setIsDark(false)
+  }
+
   return (
-    <UserContext.Provider value={{ name, isDark, saveUser, toggleTheme }}>
+    <UserContext.Provider value={{ name, isDark, saveUser, toggleTheme, logout }}>
       {children}
     </UserContext.Provider>
   )
